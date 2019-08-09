@@ -25,7 +25,7 @@ import SetupPage from './SetupPage'
 import NewPinPage from './NewPinPage'
 import VerifyPinPage from './VerifyPinPage'
 
-import BITZEC_IMG from '../../assets/img/BITZEC.png'
+import BITZEC_IMG from '../../assets/img/bitzec.png'
 
 const renderPage = (route, navigator) => (
   <route.component key={route.key} navigator={navigator} />
@@ -46,7 +46,7 @@ class App extends React.Component {
 
   componentDidMount () {
     readFromFile(BITZEC_MOBILE_CONTACTS_PATH, (data) => {
-      // Get contact list      
+      // Get contact list
       try {
         data = JSON.parse(data)
       } catch (err) {
@@ -77,7 +77,7 @@ class App extends React.Component {
         })
       }
 
-      // Get settings         
+      // Get settings
       if (data.settings !== undefined) {
         if (data.settings.language !== undefined) {
           const settingsLanguage = data.settings.language
@@ -114,7 +114,7 @@ class App extends React.Component {
       })
 
       // Cordova plugin might not work for
-      // All api versions. in the event...      
+      // All api versions. in the event...
       // alert('Unable to read file. Error: ' + JSON.stringify(err))
       console.log(err) // Just to stop eslint from complaining
     })
@@ -152,7 +152,7 @@ class App extends React.Component {
         )
         : (
           // If we haven't read the file yet
-          // display a spinning animation   
+          // display a spinning animation
           <Page>
             <div style={{ marginTop: '40%', textAlign: 'center' }}>
               <img src={BITZEC_IMG} style={{ width: '30%' }} /><br />
