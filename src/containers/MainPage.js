@@ -30,8 +30,8 @@ import {
   setAddress,
   setPrivateKey,
   setAddressValue,
-  setZenInBtcValue,
-  setZenInCurrencyValue
+  setBzcInBtcValue,
+  setBzcInCurrencyValue
 } from '../actions/Context'
 import { LANG_ENGLISH } from '../actions/Settings'
 import { urlAppend, prettyFormatPrices } from '../utils/index'
@@ -80,14 +80,14 @@ const getTxDetailPage = (navigator, tx, curLang = LANG_ENGLISH) => {
           <ons-row>{tx.fees}</ons-row>
         </ListItem>
         <ListItem tappable>
-          <ons-row><strong>{ curTranslation.General.in }&nbsp;({tx.valueIn} ZEN)</strong></ons-row>
+          <ons-row><strong>{ curTranslation.General.in }&nbsp;({tx.valueIn} BZC)</strong></ons-row>
           {
             tx.vin.map(function (vin, idx) {
               return (
                 <ons-row key={idx} style={{marginTop: '10px'}}>
                   <ons-col width={'90%'}>
                     { vin.addr }<br/>
-                    <span style={{color: '#7f8c8d'}}>({ vin.value } ZEN)</span>
+                    <span style={{color: '#7f8c8d'}}>({ vin.value } BZC)</span>
                   </ons-col>
 
                   <ons-col width={'10%'}>
@@ -99,14 +99,14 @@ const getTxDetailPage = (navigator, tx, curLang = LANG_ENGLISH) => {
           }
         </ListItem>
         <ListItem tappable>
-          <ons-row><strong>{ curTranslation.General.out } ({tx.valueOut} ZEN)</strong></ons-row>
+          <ons-row><strong>{ curTranslation.General.out } ({tx.valueOut} BZC)</strong></ons-row>
           {
             tx.vout.map(function (vout, idx) {
               return (
                 <ons-row key={idx} style={{marginTop: '10px'}}>
                   <ons-col width={'90%'}>
                     { vout.scriptPubKey.addresses[0] }<br/>
-                    <span style={{color: '#7f8c8d'}}>({ vout.value } ZEN)</span>
+                    <span style={{color: '#7f8c8d'}}>({ vout.value } BZC)</span>
                   </ons-col>
 
                   <ons-col width={'10%'}>
@@ -162,10 +162,10 @@ class MainPage extends React.Component {
     // Resets
     this.setConnectionError(false)
     this.props.setAddressValue(null)
-    this.props.setZenInBtcValue(null)
-    this.props.setZenInCurrencyValue(null)
+    this.props.setBzcInBtcValue(null)
+    this.props.setBzcInCurrencyValue(null)
 
-    // How many zen
+    // How many Bzc
     const addrURL = urlAppend(this.props.settings.insightAPI, 'addr/' + address + '/')
     axios.get(addrURL)
       .then((resp) => {
@@ -183,16 +183,16 @@ class MainPage extends React.Component {
         // Get btc value and get local currency
         // via coinmarketcap
         const curCurrency = this.props.settings.currency
-        const cmcZenInfoURL = 'https://api.coinmarketcap.com/v1/ticker/zencash/?convert=' + curCurrency
-        axios.get(cmcZenInfoURL)
+        const cmcBzcInfoURL = 'https://api.coinmarketcap.com/v1/ticker/Zcash/?convert=' + curCurrency
+        axios.get(cmcZecInfoURL)
           .then((resp) => {
             try {
               const coinmarketcapData = resp.data
               const priceBtc = parseFloat(coinmarketcapData[0]['price_btc'])
               const priceCurrency = parseFloat(coinmarketcapData[0]['price_' + curCurrency.toLowerCase()])
 
-              this.props.setZenInBtcValue(priceBtc)
-              this.props.setZenInCurrencyValue(priceCurrency)
+              this.props.setBzcInBtcValue(priceBtc)
+              this.props.setBzcInCurrencyValue(priceCurrency)
             } catch (err) {
               if (err) {
                 console.log(err)
@@ -374,7 +374,7 @@ class MainPage extends React.Component {
                       component: SettingsPage
                     }
                   ]}
-                renderHeader={() => <ListHeader>ZEN</ListHeader>}
+                renderHeader={() => <ListHeader>BZC</ListHeader>}
                 renderRow={(i) =>
                   <ListItem
                     onClick={() => this.gotoComponent(i.component)}
@@ -406,7 +406,7 @@ class MainPage extends React.Component {
                     {
                       this.props.context.value === null
                         ? null
-                        : <span style={{fontSize: '16px'}}>ZEN</span>
+                        : <span style={{fontSize: '16px'}}>BZC</span>
                     }
                   </h1>
                 </ons-col>
@@ -513,7 +513,7 @@ class MainPage extends React.Component {
                                 <span style={{color: '#7f8c8d'}}>{ txTime }</span>
                               </ons-col>
                               <ons-col style={{textAlign: 'right', paddingRight: '12px'}}>
-                                { parseFloat(Math.abs(txValue)).toFixed(8) }&nbsp;ZEN
+                                { parseFloat(Math.abs(txValue)).toFixed(8) }&nbsp;BZC
                               </ons-col>
                             </ons-row>
                           </ListItem>
@@ -568,8 +568,8 @@ MainPage.propTypes = {
   setAddress: PropTypes.func.isRequired,
   setAddressValue: PropTypes.func.isRequired,
   setPrivateKey: PropTypes.func.isRequired,
-  setZenInBtcValue: PropTypes.func.isRequired,
-  setZenInCurrencyValue: PropTypes.func.isRequired
+  setBzcInBtcValue: PropTypes.func.isRequired,
+  setBzcInCurrencyValue: PropTypes.func.isRequired
 }
 
 function mapStateToProps (state) {
@@ -587,8 +587,8 @@ function matchDispatchToProps (dispatch) {
       setAddress,
       setAddressValue,
       setPrivateKey,
-      setZenInBtcValue,
-      setZenInCurrencyValue
+      setBzcInBtcValue,
+      setBzcInCurrencyValue
     },
     dispatch
   )

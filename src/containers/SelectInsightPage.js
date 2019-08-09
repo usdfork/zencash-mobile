@@ -49,10 +49,10 @@ class SelectInsightPage extends React.Component {
           <ListHeader>
             Preconfigured Nodes
           </ListHeader>
-          <ListItem tappable onClick={() => this.props.setInsightAPI('https://explorer.horizen.global/api/')}>
+          <ListItem tappable onClick={() => this.props.setInsightAPI('http://35.242.189.203:3001/insight-api-bitzec/')}>
             horizen.global
           </ListItem>
-          <ListItem tappable onClick={() => this.props.setInsightAPI('https://explorer.zen-solutions.io/api/')}>
+          <ListItem tappable onClick={() => this.props.setInsightAPI('http://35.187.215.228:3001/api/')}>
             explorer.zen-solutions.io
           </ListItem>
         </List>

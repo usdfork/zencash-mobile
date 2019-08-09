@@ -42,7 +42,7 @@ export type TRANSLATION_OBJ = {
     invalidAmount: string,
     invalidFee: string,
     zeroAmount: string,
-    notEnoughZEN: string,
+    notEnoughBZC: string,
     noCameraPermissions: string
   },
   TxDetailPage: {
