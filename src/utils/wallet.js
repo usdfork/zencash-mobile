@@ -8,7 +8,7 @@ function phraseToSecretItems (phraseStr) {
   const seedHex = Buffer.from(phraseStr.slice(0, 64)).toString('hex')
 
   //Set Network
-  let network = bitgo.networks['bitzec']
+  let network = bitgo.networks['bzc']
   
   // chains
   const hdNode = bitgo.HDNode.fromSeedHex(seedHex, network)
